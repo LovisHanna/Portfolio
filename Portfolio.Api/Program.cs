@@ -5,6 +5,7 @@ using Portfolio.RepositoryPattern;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -13,8 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IRepository<Book>, InMemoryRepository<Book>>();
-builder.Services.AddSingleton<IRepository<MongoBook>, MongoRepository<MongoBook>>();
-builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
+//builder.Services.AddSingleton<IRepository<Book>, MongoRepository<Book>>();
+builder.Services.AddSingleton<IMongoClient>(new MongoClient(builder.Configuration.GetValue<string>("MongoDbSettings:ConnectionString")));
 
 
 var app = builder.Build();

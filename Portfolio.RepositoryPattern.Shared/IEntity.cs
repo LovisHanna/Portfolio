@@ -1,4 +1,4 @@
-﻿namespace Portfolio.RepositoryPattern;
+﻿namespace Portfolio.RepositoryPattern.Shared;
 
 public interface IEntity
 {

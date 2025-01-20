@@ -5,14 +5,14 @@ using Portfolio.RepositoryPattern.Exceptions;
 namespace Portfolio.Api;
 
 [ApiController]
-[Route("book")]
-public class BookController : ControllerBase
+[Route("library")]
+public class Controller : ControllerBase
 {
-    private readonly IRepository<Book> _bookRepository;
+    private readonly IRepository<Book> _mongoRepository;
 
-    public BookController(IRepository<Book> bookRepository)
+    public Controller(IRepository<Book> mongoRepository)
     {
-        _bookRepository = bookRepository;
+        _mongoRepository = mongoRepository;
     }
 
     [HttpGet]
@@ -21,7 +21,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            return Ok(await _bookRepository.Get(id));
+            return Ok(await _mongoRepository.Get(id));
         }
         catch (RepositoryNotFoundException)
         {
@@ -30,12 +30,11 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/author/{author}")]
-    public  IActionResult GetByAuthor([FromRoute] string author)
+    [Route("author/{author}")]
+    public IActionResult GetByAuthor([FromRoute] string author)
     {
-        return Ok(_bookRepository.Query().Where(x => x.Author == author));
+        return Ok(_mongoRepository.Query().Where(x => x.Author == author));
     }
-
 
     [HttpPost]
     [Route("add")]
@@ -43,14 +42,13 @@ public class BookController : ControllerBase
     {
         try
         {
-            await _bookRepository.Add(book);
+            await _mongoRepository.Add(book);
             return Ok();
         }
         catch (RepositoryConflictException)
         {
             return BadRequest("Conflict");
         }
-        
     }
 
     [HttpPut]
@@ -59,14 +57,13 @@ public class BookController : ControllerBase
     {
         try
         {
-            await _bookRepository.Update(book);
+            await _mongoRepository.Update(book);
             return Ok();
         }
         catch (RepositoryNotFoundException)
         {
             return NotFound();
         }
-        
     }
 
     [HttpDelete]
@@ -75,13 +72,12 @@ public class BookController : ControllerBase
     {
         try
         {
-            await _bookRepository.Delete(id);
+            await _mongoRepository.Delete(id);
             return Ok();
         }
         catch (RepositoryNotFoundException)
         {
             return NotFound();
         }
-        
     }
 }

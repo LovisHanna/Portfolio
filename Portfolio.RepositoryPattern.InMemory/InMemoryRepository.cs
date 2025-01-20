@@ -1,7 +1,7 @@
 ﻿ using Portfolio.RepositoryPattern.Exceptions;
-using System.Linq.Expressions;
+using Portfolio.RepositoryPattern.Shared;
 
-namespace Portfolio.RepositoryPattern;
+namespace Portfolio.RepositoryPattern.InMemory;
 
 public class InMemoryRepository<TEntity> : IRepository<TEntity> where TEntity : IEntity
 {
