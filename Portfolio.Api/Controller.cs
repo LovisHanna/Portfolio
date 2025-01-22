@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatorPattern; //rätt using?
+using Microsoft.AspNetCore.Mvc;
+using Portfolio.Api.Handlers;
 using Portfolio.RepositoryPattern;
-using Portfolio.RepositoryPattern.Exceptions;
+using Portfolio.RepositoryPattern.Shared.Exceptions;
+
 
 namespace Portfolio.Api;
 
@@ -8,22 +11,27 @@ namespace Portfolio.Api;
 [Route("library")]
 public class Controller : ControllerBase
 {
-    private readonly IRepository<Book> _mongoRepository;
+    private readonly IRepository<Book> _repository;
+    private readonly IMediator _mediator;
 
-    public Controller(IRepository<Book> mongoRepository)
+    public Controller(IRepository<Book> repository)
     {
-        _mongoRepository = mongoRepository;
+        _repository = repository;
+        _mediator = new Mediator([new GetHandler()]);
+
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<IActionResult> Get([FromRoute] string id)
     {
+        _mediator.HandleRequest(new GetHandlerRequest { Id = id });
+
         try
         {
-            return Ok(await _mongoRepository.Get(id));
+            return Ok(await _repository.Get(id));
         }
-        catch (RepositoryNotFoundException)
+        catch (NotFoundException)
         {
             return NotFound();
         }
@@ -33,7 +41,7 @@ public class Controller : ControllerBase
     [Route("author/{author}")]
     public IActionResult GetByAuthor([FromRoute] string author)
     {
-        return Ok(_mongoRepository.Query().Where(x => x.Author == author));
+        return Ok(_repository.Query().Where(x => x.Author == author));
     }
 
     [HttpPost]
@@ -42,10 +50,10 @@ public class Controller : ControllerBase
     {
         try
         {
-            await _mongoRepository.Add(book);
+            await _repository.Add(book);
             return Ok();
         }
-        catch (RepositoryConflictException)
+        catch (ConflictException)
         {
             return BadRequest("Conflict");
         }
@@ -57,10 +65,10 @@ public class Controller : ControllerBase
     {
         try
         {
-            await _mongoRepository.Update(book);
+            await _repository.Update(book);
             return Ok();
         }
-        catch (RepositoryNotFoundException)
+        catch (NotFoundException)
         {
             return NotFound();
         }
@@ -72,12 +80,13 @@ public class Controller : ControllerBase
     {
         try
         {
-            await _mongoRepository.Delete(id);
+            await _repository.Delete(id);
             return Ok();
         }
-        catch (RepositoryNotFoundException)
+        catch (NotFoundException)
         {
             return NotFound();
         }
     }
 }
+

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
-using Portfolio.RepositoryPattern.Exceptions;
 using Portfolio.RepositoryPattern.Shared;
+using Portfolio.RepositoryPattern.Shared.Exceptions;
 
 namespace Portfolio.RepositoryPattern.MongoDB;
 
@@ -23,7 +23,7 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : IEn
 
         if (entity == null)
         {
-            throw new RepositoryNotFoundException("Not found");
+            throw new NotFoundException("Not found");
         }
 
         return entity;
@@ -45,7 +45,7 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : IEn
         {
             if (e.WriteError.Category == ServerErrorCategory.DuplicateKey)
             {
-                throw new RepositoryConflictException("Conflict", e);
+                throw new ConflictException("Conflict", e);
             }
         }
     }
@@ -56,7 +56,7 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : IEn
 
         if (result.DeletedCount == 0)
         {
-            throw new RepositoryNotFoundException("Not found");
+            throw new NotFoundException("Not found");
         }
     }
 
@@ -66,7 +66,7 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : IEn
 
         if (result.ModifiedCount == 0)
         {
-            throw new RepositoryNotFoundException("Not found");
+            throw new NotFoundException("Not found");
 
         }
 

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Portfolio.RepositoryPattern">
+      <HintPath>..\Portfolio.RepositoryPattern\obj\Debug\net8.0\ref\Portfolio.RepositoryPattern.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

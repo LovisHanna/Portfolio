@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MediatorPattern\MediatorPattern.csproj" />
     <ProjectReference Include="..\Portfolio.MongoRepository\Portfolio.MongoRepository.csproj" />
-    <ProjectReference Include="..\Portfolio.RepositoryPattern\Portfolio.RepositoryPattern.csproj" />
+    <ProjectReference Include="..\Portfolio.RepositoryPattern.Shared\Portfolio.RepositoryPattern.Shared.csproj" />
   </ItemGroup>
 
 </Project>

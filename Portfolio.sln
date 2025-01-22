@@ -10,11 +10,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepositoryPattern", "Reposi
 		Portfolio.RepositoryPattern\RepositoryPattern.md = Portfolio.RepositoryPattern\RepositoryPattern.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.RepositoryPattern.InMemory", "Portfolio.RepositoryPattern.InMemory\Portfolio.RepositoryPattern.InMemory.csproj", "{A392BB00-2AA9-47C1-BA36-B77EEC00AE54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.RepositoryPattern.InMemory", "Portfolio.RepositoryPattern.InMemory\Portfolio.RepositoryPattern.InMemory.csproj", "{A392BB00-2AA9-47C1-BA36-B77EEC00AE54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.RepositoryPattern.Shared", "Portfolio.RepositoryPattern.Shared\Portfolio.RepositoryPattern.Shared.csproj", "{C698F130-C141-4E7F-8BB8-73E11C1EA167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.RepositoryPattern.Shared", "Portfolio.RepositoryPattern.Shared\Portfolio.RepositoryPattern.Shared.csproj", "{C698F130-C141-4E7F-8BB8-73E11C1EA167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.RepositoryPattern.MongoDB", "Portfolio.RepositoryPattern.MongoDB\Portfolio.RepositoryPattern.MongoDB.csproj", "{C16D5B47-1677-44EB-8ABA-684632BDB71E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.RepositoryPattern.MongoDB", "Portfolio.RepositoryPattern.MongoDB\Portfolio.RepositoryPattern.MongoDB.csproj", "{C16D5B47-1677-44EB-8ABA-684632BDB71E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediatorPattern", "MediatorPattern", "{222056C0-7673-4CD6-B4ED-AD84DDC07C02}"
+	ProjectSection(SolutionItems) = preProject
+		MediatorPattern.md = MediatorPattern.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatorPattern", "MediatorPattern\MediatorPattern.csproj", "{D74286D0-1F51-497F-B5A4-4B99DF497C28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +45,10 @@ Global
 		{C16D5B47-1677-44EB-8ABA-684632BDB71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C16D5B47-1677-44EB-8ABA-684632BDB71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C16D5B47-1677-44EB-8ABA-684632BDB71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D74286D0-1F51-497F-B5A4-4B99DF497C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74286D0-1F51-497F-B5A4-4B99DF497C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D74286D0-1F51-497F-B5A4-4B99DF497C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74286D0-1F51-497F-B5A4-4B99DF497C28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +57,7 @@ Global
 		{A392BB00-2AA9-47C1-BA36-B77EEC00AE54} = {7F3DB48D-3DC9-4E5E-A4E0-377EBD162094}
 		{C698F130-C141-4E7F-8BB8-73E11C1EA167} = {7F3DB48D-3DC9-4E5E-A4E0-377EBD162094}
 		{C16D5B47-1677-44EB-8ABA-684632BDB71E} = {7F3DB48D-3DC9-4E5E-A4E0-377EBD162094}
+		{D74286D0-1F51-497F-B5A4-4B99DF497C28} = {222056C0-7673-4CD6-B4ED-AD84DDC07C02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9DF0DFA0-A62E-42FF-9F37-AEE462D97AB7}

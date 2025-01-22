@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Portfolio.RepositoryPattern.Shared;
+﻿namespace Portfolio.RepositoryPattern.Shared;
 
 public interface IRepository<TEntity> where TEntity : IEntity
 {

@@ -1,5 +1,5 @@
-﻿ using Portfolio.RepositoryPattern.Exceptions;
-using Portfolio.RepositoryPattern.Shared;
+﻿using Portfolio.RepositoryPattern.Shared;
+using Portfolio.RepositoryPattern.Shared.Exceptions;
 
 namespace Portfolio.RepositoryPattern.InMemory;
 
@@ -19,7 +19,7 @@ public class InMemoryRepository<TEntity> : IRepository<TEntity> where TEntity : 
             return Task.FromResult(_entities[id]);
         }
 
-        throw new RepositoryNotFoundException("Not found");
+        throw new NotFoundException("Not found");
     }
 
     public IQueryable<TEntity> Query()
@@ -32,7 +32,7 @@ public class InMemoryRepository<TEntity> : IRepository<TEntity> where TEntity : 
     {
         if (_entities.ContainsKey(entity.Id))
         {
-            throw new RepositoryConflictException("Conflict");
+            throw new ConflictException("Conflict");
         }
         _entities.Add(entity.Id, entity);
         return Task.CompletedTask;
@@ -46,7 +46,7 @@ public class InMemoryRepository<TEntity> : IRepository<TEntity> where TEntity : 
         }
         else
         {
-            throw new RepositoryNotFoundException("Not found");
+            throw new NotFoundException("Not found");
         }
         return Task.CompletedTask;
     }
@@ -59,7 +59,7 @@ public class InMemoryRepository<TEntity> : IRepository<TEntity> where TEntity : 
         }
         else
         {
-            throw new RepositoryNotFoundException("Not found");
+            throw new NotFoundException("Not found");
         }
         return Task.CompletedTask;
     }
