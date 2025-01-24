@@ -1,7 +1,11 @@
 using MongoDB.Driver;
 using Portfolio.Api;
-using Portfolio.MongoRepository;
+using Portfolio.Api.DTOs;
 using Portfolio.RepositoryPattern;
+using Portfolio.RepositoryPattern.InMemory;
+using Portfolio.RepositoryPattern.MongoDB;
+using Portfolio.RepositoryPattern.Shared;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +17,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IRepository<Book>, InMemoryRepository<Book>>();
-//builder.Services.AddSingleton<IRepository<Book>, MongoRepository<Book>>();
+//builder.Services.AddSingleton<IRepository<Book>, InMemoryRepository<Book>>();
+builder.Services.AddSingleton<IRepository<Book>, MongoRepository<Book>>();
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(builder.Configuration.GetValue<string>("MongoDbSettings:ConnectionString")));
 
+//Adding handlers
+builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
 

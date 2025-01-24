@@ -1,7 +1,8 @@
-﻿using MediatorPattern; //rätt using?
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.Api.DTOs;
 using Portfolio.Api.Handlers;
-using Portfolio.RepositoryPattern;
+using Portfolio.RepositoryPattern.Shared;
 using Portfolio.RepositoryPattern.Shared.Exceptions;
 
 
@@ -14,22 +15,21 @@ public class Controller : ControllerBase
     private readonly IRepository<Book> _repository;
     private readonly IMediator _mediator;
 
-    public Controller(IRepository<Book> repository)
+    public Controller(IRepository<Book> repository, IMediator mediator)
     {
         _repository = repository;
-        _mediator = new Mediator([new GetHandler()]);
-
+        _mediator = mediator; //?
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<IActionResult> Get([FromRoute] string id)
     {
-        _mediator.HandleRequest(new GetHandlerRequest { Id = id });
+        var result = await _mediator.Send(new GetBookRequest { Id = id });
 
         try
         {
-            return Ok(await _repository.Get(id));
+            return Ok(result);
         }
         catch (NotFoundException)
         {
@@ -46,11 +46,11 @@ public class Controller : ControllerBase
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> Add(Book book)
+    public async Task<IActionResult> Add(Book bookDto)
     {
         try
         {
-            await _repository.Add(book);
+            await _repository.Add(bookDto);
             return Ok();
         }
         catch (ConflictException)
@@ -61,11 +61,11 @@ public class Controller : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Book book)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Book bookDto)
     {
         try
         {
-            await _repository.Update(book);
+            await _repository.Update(bookDto);
             return Ok();
         }
         catch (NotFoundException)
