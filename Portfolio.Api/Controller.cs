@@ -1,10 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Portfolio.Api.DTOs;
 using Portfolio.Api.Handlers;
 using Portfolio.RepositoryPattern.Shared;
 using Portfolio.RepositoryPattern.Shared.Exceptions;
-
 
 namespace Portfolio.Api;
 
@@ -18,7 +16,7 @@ public class Controller : ControllerBase
     public Controller(IRepository<Book> repository, IMediator mediator)
     {
         _repository = repository;
-        _mediator = mediator; //?
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -41,7 +39,9 @@ public class Controller : ControllerBase
     [Route("author/{author}")]
     public IActionResult GetByAuthor([FromRoute] string author)
     {
-        return Ok(_repository.Query().Where(x => x.Author == author));
+        var result = _mediator.Send(new GetBooksByAuthorRequest { Author = author });
+
+        return Ok(result);
     }
 
     [HttpPost]

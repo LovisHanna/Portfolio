@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Portfolio.Api.DTOs;
+using Portfolio.Api.Extensions;
 using Portfolio.RepositoryPattern.Shared;
 
 namespace Portfolio.Api.Handlers;
@@ -26,19 +27,3 @@ public class GetBookHandler : IRequestHandler<GetBookRequest, BookDto>
     }
 }
 
-
-public static class BookExtensions
-{
-    public static BookDto ToDto(this Book book)
-    {
-        return new BookDto
-        {
-            Id = book.Id,
-            Title = book.Title,
-            Author = book.Author,
-            Publisher = book.Publisher,
-            IsAvailable = book.IsAvailable,
-            Genre = book.Genre
-        };
-    }
-}
