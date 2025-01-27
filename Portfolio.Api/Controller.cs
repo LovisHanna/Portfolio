@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.Api.DTOs;
 using Portfolio.Api.Handlers;
 using Portfolio.RepositoryPattern.Shared;
 using Portfolio.RepositoryPattern.Shared.Exceptions;
@@ -46,12 +47,13 @@ public class Controller : ControllerBase
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> Add(Book bookDto)
+    public async Task<IActionResult> Add(BookDto bookDto)
     {
+        var result = _mediator.Send(new AddBookRequest { BookDto = bookDto });
+
         try
         {
-            await _repository.Add(bookDto);
-            return Ok();
+            return Ok(result);
         }
         catch (ConflictException)
         {
@@ -61,11 +63,11 @@ public class Controller : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Book bookDto)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Book book)
     {
         try
         {
-            await _repository.Update(bookDto);
+            await _repository.Update(book);
             return Ok();
         }
         catch (NotFoundException)

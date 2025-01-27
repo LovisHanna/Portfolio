@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<Book>, MongoRepository<Book>>();
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(builder.Configuration.GetValue<string>("MongoDbSettings:ConnectionString")));
 
-//Adding handlers
+//Adding handlers through medaitR
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();

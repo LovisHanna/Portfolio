@@ -22,6 +22,13 @@ public class GetBooksByAuthorHandler : IRequestHandler<GetBooksByAuthorRequest, 
     public Task<List<BookDto>> Handle(GetBooksByAuthorRequest request, CancellationToken cancellationToken)
     {
         var result = _repository.Query().Where(x => x.Author == request.Author);
-        return Task.FromResult(result.Select(x => x.ToDto()).ToList());
+
+        List<BookDto> booksByAuthor = new List<BookDto>();
+        foreach (var book in result)
+        {
+            booksByAuthor.Add(book.ToDto());
+        }
+
+        return Task.FromResult(booksByAuthor);
     }
 }
