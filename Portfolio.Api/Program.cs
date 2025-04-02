@@ -23,6 +23,7 @@ builder.Services.AddSingleton<IMongoClient>(new MongoClient(builder.Configuratio
 
 //Adding handlers through medaitR
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddHttpClient<IClient, ArtDB>();
 
 var app = builder.Build();
 

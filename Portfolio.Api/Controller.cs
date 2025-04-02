@@ -90,5 +90,22 @@ public class Controller : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpGet]
+    [Route("/artData/{id}")]
+    public async Task<IActionResult> GetArt([FromRoute] int id)
+    {
+        var result = await _mediator.Send(new SpeciesRequest { Id = id });
+
+        try
+        {
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+
+            throw new Exception("Nåt blev knas", e);
+        }
+    }
 }
 
